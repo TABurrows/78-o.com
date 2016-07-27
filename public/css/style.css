@@ -1,0 +1,219 @@
+* {
+margin: 0;
+padding: 0;
+}
+body {
+font: 15px/1.5 'OpenSans',sans-serif;
+}
+body, a {
+color: #282828;
+}
+.view {
+margin: 0 auto;
+max-width: 600px;
+padding: 10px;
+}
+header {
+padding-top: 2em;
+padding-bottom: 1em;
+text-align: center;
+}
+header h1 {
+font: bold 45px/1.5 'OpenSans', sans-serif;
+}
+header h2 {
+font: normal 30px/1.5 'OpenSans',sans-serif;
+}
+header img {
+display: block;
+margin-left: auto;
+margin-right: auto;
+width: 150px;
+height: 150px;
+background: #fff;
+color: #fff;
+position: relative;
+padding: 3px;
+}
+canvas {
+-moz-user-select: none;
+-webkit-user-select: none;
+-ms-user-select: none;
+}
+#priceChart {
+background-image: url('../gfx/bitcoin.png');
+background-repeat: no-repeat;
+background-position: center center;
+}
+.status {
+border-spacing: 0;
+margin: 0 auto 30px;
+text-align: center;
+width: 100%;
+}
+.status th:not(:last-child),
+.status td:not(:last-child) {
+border-right: 1px solid #d8d8d8;
+}
+.status th {
+color: #aaa;
+font-weight: normal;
+}
+.status td {
+font-size: 19px;
+}
+h3, p {
+padding-bottom: 1em;
+}
+h3 {
+font-size: 19px;
+padding-top: 1em;
+}
+.explain {
+display: none;
+margin-bottom: 10px;
+}
+.hide {
+display: none;
+}
+.pointUpLeft {
+width: 0;
+height: 0;
+margin-left: 40px;
+border-left: 30px solid transparent;
+border-right: 30px solid transparent;
+border-bottom: 30px solid pink;
+}
+.pointUpCentre {
+width: 0;
+height: 0;
+margin-left: 48%;
+border-left: 30px solid transparent;
+border-right: 30px solid transparent;
+border-bottom: 30px solid pink;
+}
+.pointDownCentre {
+width: 0;
+height: 0;
+margin-left: 48%;
+border-left: 30px solid transparent;
+border-right: 30px solid transparent;
+border-top: 30px solid pink;
+}
+.pointDownLeft {
+width: 0;
+height: 0;
+margin-left: 40px;
+border-left: 30px solid transparent;
+border-right: 30px solid transparent;
+border-top: 30px solid pink;
+}
+.bubble {
+color: #0e0e0e;
+font: normal 20px/1.25 'OpenSans',sans-serif;
+background-color: pink;
+padding: 20px;
+border-radius: 20px;
+}
+code {
+background: #fff;
+border: 1px solid #d8d8d8;
+display: block;
+font-size: 11px;
+margin-bottom: 2em;
+padding: 1em;
+}
+code.request:hover {
+cursor: pointer;
+}
+code.requesta:hover {
+text-decoration: underline;
+}
+code.request:before {
+color: #006ce1;
+content: 'GET ';
+}
+code.js {
+white-space: pre;
+white-space-collapse: discard;
+}
+code.js:hover {
+cursor: pointer;
+}
+ol {
+padding-top: 10px;
+padding-left: 24px;
+border-top: 1px solid #aaa;
+font-size: 12px;
+}
+footer {
+margin: 2em 0;
+text-align: center;
+}
+.explainTab {
+background-image: url('../gfx/explainTab.png');
+background-repeat: no-repeat;
+font: bold 25px/1.5 'OpenSans',sans-serif;
+transition: 0.5s;
+padding-top: 10px;
+padding-left: 20px;
+position: fixed;
+left: -210px;
+top: 240px;
+z-index: 999;
+background-color: pink;
+height: 100px;
+width: 250px;
+cursor: pointer;
+color: #0e0e0e;
+text-decoration: underline;
+-webkit-border-radius: 0 5px 5px 0;
+border-radius: 0 5px 5px 0;
+}
+.showExplainTab {
+transition: 1s;
+left: -1px;
+}
+.hatch {
+display: block;
+animation-name: hatchExplanations;
+animation-iteration-count: 1;
+animation-timing-function: ease-out;
+animation-duration: 0.6s;
+-webkit-animation-name: hatchExplanations;
+-webkit-animation-iteration-count: 1;
+-webkit-animation-timing-function: ease-out;
+-webkit-animation-duration: 0.6s;
+-moz-animation-name: hatchExplanations;
+-moz-animation-iteration-count: 1;
+-moz-animation-timing-function: ease-out;
+-moz-animation-duration: 0.6s;
+visibility: visible !important;
+}
+@keyframes hatchExplanations {
+0% { transform: rotate(0deg) scaleY(0.6); }
+20% { transform: rotate(-2deg) scaleY(1.05); }
+35% { transform: rotate(2deg) scaleY(1); }
+50% { transform: rotate(-2deg); }
+65% { transform: rotate(1deg); }
+80% { transform: rotate(-1deg); }
+100% { transform: rotate(0deg); }
+}
+@-webkit-keyframes hatchExplanations {
+0% { -webkit-transform: rotate(0deg) scaleY(0.6); }
+20% { -webkit-transform: rotate(-2deg) scaleY(1.05); }
+35% { -webkit-transform: rotate(2deg) scaleY(1); }
+50% { -webkit-transform: rotate(-2deg); }
+65% { -webkit-transform: rotate(1deg); }
+80% { -webkit-transform: rotate(-1deg); }
+100% { -webkit-transform: rotate(0deg); }
+}
+@-moz-keyframes hatchExplanations {
+0% { -moz-transform: rotate(0deg) scaleY(0.6); }
+20% { -moz-transform: rotate(-2deg) scaleY(1.05); }
+35% { -moz-transform: rotate(2deg) scaleY(1); }
+50% { -moz-transform: rotate(-2deg); }
+65% { -moz-transform: rotate(1deg); }
+80% { -moz-transform: rotate(-1deg); }
+100% { -moz-transform: rotate(0deg); }
+}

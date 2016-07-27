@@ -1,0 +1,8 @@
+# Ignore makefiles that are locally specific
+makefile
+
+# Ignore testing .db files
+*.db
+
+# Ignore
+phpunit.phar

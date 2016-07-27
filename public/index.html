@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Prototype JSON API for publishing bitcoin / GBP pricing data">
+    <title>Prototype JSON API for publishing bitcoin / GBP pricing data</title>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+    <link href="./css/style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+  <div class="explainTab"><span id="showExplanations">Show</span><br/>Annotations</div>
+  <div class="view">
+    <!-- annotation -->
+    <div class="explain">
+    <div class="pointUpLeft"></div>
+    <div class="bubble">
+    Name resolution completed at the site's ISP in Amsterdam<br/><br/>
+    Web Site / API published from a cloud VM instance in Ireland
+    </div>
+    <div class="pointDownCentre"></div>
+    </div>
+    <!-- annotation -->
+  <header>
+  <h1>78-o.com</h1>
+  <h2>Prototype JSON API for publishing bitcoin / GBP pricing data</h2>
+    <!-- annotation -->
+  	<div class="explain">
+  	<div class="bubble">
+  	Canvas element is used to graph price data with the chart.js library
+  	</div>
+  	<div class="pointDownCentre"></div>
+  	</div>
+  	<!-- annotation -->
+  <span id="stampdate"></span>
+	<canvas id="priceChart" width="400" height="400"></canvas>
+  </header>
+  <table class="status">
+    <thead>
+      <tr>
+        <th>Last Price</th>
+        <th>Total Volume</th>
+        <th>24 hr Average</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td id="stamptime"></td>
+        <td id="total_vol"></td>
+        <td id="p24h_avg"></td>
+      </tr>
+      <tr>
+          <td colspan=3><div id="stampdate"></div></td>
+      </tr>
+    </tbody>
+  </table>
+  <section>
+  <p>The bitcoin / GBP price data is updated every 15 mintues and, originally sourced from the freely available <strong>bitcoin average v1 API</strong>, the api data is served from a local database.</p>
+  <h3>Example API Usage</h3>
+    <!-- annotation -->
+    <div class="explain">
+    <div class="bubble">
+    API data is served from a MySQL DB over a LEMP stack
+    </div>
+    <div class="pointDownCentre"></div>
+    </div>
+    <!-- annotation -->
+  <p>The default request returns the ten latest recorded bitcoin / GBP prices in JSON format:</p>
+  <code class="request"><a>https://78-o.com/api/price/bitcoin</a></code>
+    <!-- annotation -->
+    <div class="explain">
+    <div class="pointUpLeft"></div>
+    <div class="bubble">
+    PHPUnit is used to test assertions made in the called code's logic
+    </div>
+    </div>
+    <!-- annotation -->
+  <p>Use <strong>enddate</strong> and <strong>startdate</strong> to get historical bitcoin / GBP Prices for a particular time range:</p>
+  <code class="request"><a>https://78-o.com/api/price/bitcoin/?enddate=2016-07-28&startdate=2016-07-19</a></code>
+    <!-- annotation -->
+    <div class="explain">
+    <div class="pointUpLeft"></div>
+    <div class="bubble">
+    PHP flags and filters are used to validate and sanitize user input and output.
+    </div>
+    </div>
+    <!-- annotation -->
+  <p>Specify only <strong>enddate</strong> or <strong>startdate</strong> to return the ten prices relevant to the parameter:</p>
+    <code class="request"><a>https://78-o.com/api/price/bitcoin?startdate=2016-07-17</a></code>
+  <p>Requests can be made over an <strong>HTTPS</strong> endpoint:</p>
+    <code class="request"><a>https://78-o.com/api/price/bitcoin</a></code>
+    	<!-- annotation -->
+    	<div class="explain">
+    	<div class="bubble">
+    	JQuery is used to reference page elements and build functionality
+    	</div>
+    	<div class="pointDownCentre"></div>
+    	</div>
+    	<!-- annotation -->
+  <p>Example API use with <a href="https://jquery.com" target="_blank">jquery</a> javascript library:</p>
+    <code class="js">var getPrices = function(data) {
+      fx.rates = data.rates
+      var rate = fx(1).from("GBP").to("USD")
+      alert("£1 = $" + rate.toFixed(4))
+      }
+
+      $.getPrices("https://78-o.com/api/price/bitcoin", demo)
+    </code>
+	</section>
+	<section>
+  <ol>
+  	<li>TLS is provided by <a href="//letsencrypt.org" target="_blank">letsencrypt.org</a> asymmetric encryption.</li>
+  	<li>The site is served from a <a href="//nginx.org" target="_blank">nginx community edition</a> web server.</li>
+  	<li>Hosted on an <a href="//azure.microsoft.com" target="_blank">Azure Cloud Services</a> A0 virtual machine.</li>
+  	<li>Bitcoin price data is originally sourced from <a href="//bitcoinaverage.com/" target="_blank">Bitcoin Average</a> v1 API.</li>
+    <li>Developed with <a href="//atom.io">atom</a>, <a href="//developer.mozilla.org/en-US/Firefox/Developer_Edition">Firefox DE and <a href="//www.gnu.org/software/bash/">bash</a>.</li>
+  	<li>The source is available on GitHub.</li>
+  </ol>
+  </section>
+    <!-- annotation -->
+    <div class="explain">
+    <div class="bubble">
+    Document logically described with semantic HTML elements such as this footer - helps screen readers, search engine robots etc.
+    </div>
+    <div class="pointDownCentre"></div>
+    </div>
+    <!-- annotation -->
+  <footer>
+  tab@78-o.com
+  </footer>
+    <!-- annotation -->
+    <div class="explain">
+    <div class="bubble">
+    JS libraries served from CDNs are linked to from the bottom of the page to improve page rendering speeds
+    </div>
+    <div class="pointDownLeft"></div>
+    </div>
+    <!-- annotation -->
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.min.js"></script>
+<script>
+//----------------------------------------
+var priceChartConfig = {
+type: 'line',
+data: {
+labels: ["00:00:00", "00:00:00", "00:00:00", "00:00:00", "00:00:00", "00:00:00", "00:00:00", "00:00:00", "00:00:00", "00:00:00"],
+  datasets: [{
+  label: "24h avg",
+  borderColor: 'rgba(80, 80, 80, 0.7)',
+  backgroundColor: 'rgb(255, 255, 255)',
+  pointBorderColor: 'rgba(80, 80, 80, 0.7)',
+  pointBackgroundColor: 'rgb(255, 255, 255)',
+  pointBorderWidth: 2,
+  data: [497, 497, 497, 497, 497, 497, 497, 497, 497, 497],
+  fill: false,
+  borderDash: [4, 6]
+}, {
+  label: 'last',
+  borderColor: 'rgba(252,234,34,0.7)',
+  backgroundColor: 'rgb(255,255,255)',
+  pointBorderColor: 'rgba(252,234,34,0.7)',
+  pointBackgroundColor: 'rgb(255,255,255)',
+  pointBorderWidth: 2,
+  data: [495, 495, 495, 495, 495, 495, 495, 495, 495, 495],
+  fill: false,
+  borderDash: [4, 6]
+}, {
+  label: 'ask',
+  borderColor: 'rgba(169, 253, 106, 0.7)',
+  backgroundColor: 'rgba(169, 253, 106, 0.4)',
+  pointBorderColor: 'rgba(182, 209, 113, 0.7)',
+  pointBackgroundColor: 'rgba(169, 253, 106, 0.4)',
+  pointBorderWidth: 1,
+  data: [500, 500, 500, 500, 500, 500, 500, 500, 500, 500],
+  fill: true
+}, {
+  label: 'bid',
+  borderColor: 'rgba(182, 209, 113, 0.7)',
+  backgroundColor: 'rgba(182, 209, 113, 0.4)',
+  pointBorderColor: 'rgba(182, 209, 113, 0.7)',
+  pointBackgroundColor: 'rgba(182, 209, 113, 0.4)',
+  pointBorderWidth: 1,
+  data: [490, 490, 490, 490, 490, 490, 490, 490, 490, 490],
+  fill: true
+}]
+},
+options: {
+  responsive: true,
+  responsiveAnimationDuration: 100,
+title:{
+  display:true,
+  text:'Bitcoin / GBP Price Chart'
+},
+tooltips: {
+  mode: 'label',
+  titleFontSize: 14,
+  backgroundColor: 'rgba(132, 159, 83, 0.9)',
+callbacks: {
+  }
+},
+hover: {
+  mode: 'dataset'
+},
+scales: {
+  xAxes: [{
+    display: true,
+    scaleLabel: {
+      display: true,
+      labelString: 'Time (UTC)'
+    }
+  }],
+  yAxes: [{
+    display: true,
+    scaleLabel: {
+      display: true,
+      labelString: 'Price (GBP)'
+    }
+  }]
+  }
+}};
+//----------------------------------------
+var getChartData = function() {
+	var data =$.getJSON( "/api/price/bitcoin/", function(results) {
+		var ts = results.Result1.timestamp;
+		var td = ts.substr(0,ts.length-14);
+		var tm = ts.substr(ts.length-14).substr(0,9);
+		$('#stampdate').text(td);
+		$('#stamptime').text(tm + " UTC");
+		$('#total_vol').text(results.Result1.total_vol);
+		$('#p24h_avg').text(results.Result1.p24h_avg);
+		var ask = [];
+		var bid = [];
+		var avg = [];
+		var lst = [];
+		var lbls = [];
+		$.each(results, function(i, result) {
+			$.each(result, function(k,v) {
+				if('ask' == k)
+					ask.push(v);
+				if('bid' == k)
+					bid.push(v);
+				if('p24h_avg' == k)
+					avg.push(v);
+				if('last' == k)
+					lst.push(v);
+				if('timestamp' == k)
+					lbls.push(v.substr(v.length-14).substr(0,5));
+			});
+		});
+		var dsets = [ avg.reverse(), lst.reverse(), ask.reverse(), bid.reverse() ];
+		priceChartConfig.data.labels = lbls.reverse();
+	        $.each(priceChartConfig.data.datasets, function(i, dataset) {
+	                dataset.data = dsets[i]
+		});
+		window.priceChartCanvas.update();
+  	console.log( "Successfully received data from the ajax call." );
+	  })
+	  .fail(function(e) {
+	    console.log( "There was an error connecting to the bitcoin price api: " + e.message);
+	  })
+	  .always(function() {
+	  });
+};
+//----------------------------------------
+window.onload = function() {
+  // Set the chart context and configuration
+  var priceChartContext = document.getElementById("priceChart").getContext("2d");
+  window.priceChartCanvas = new Chart(priceChartContext, priceChartConfig);
+  getChartData();
+  // Make API examples clickable
+  $('code.request').each(function() {
+    var $this = $(this);
+    var url = $this.html().match(/<a>([^<]+)/)[1];
+    $this.on('click', function(e) {
+      var $pre = $this.find('pre');
+      if ($pre.length) {
+        $pre.remove();
+      } else {
+        $.getJSON(url, function(data) {
+          $this.append('<pre>' + JSON.stringify(data, undefined, 4) + '</pre>');
+        });
+      }
+    });
+  });
+  //say hello
+  console.log("Hello!");
+  console.log("I'm often here as well ... :-)");
+};
+//----------------------------------------
+$('.explainTab').mouseover(function() {
+	$(this).addClass('showExplainTab');
+});
+$('.explainTab').mouseout(function() {
+	$(this).removeClass('showExplainTab');
+});
+$('.explainTab').click(function() {
+	$('.explain').each(function(){
+		if ($(this).hasClass('hatch')) {
+			$(this).removeClass('hatch');
+			$('#showExplanations').text('Show');
+		} else {
+			$(this).addClass('hatch');
+			$('#showExplanations').text('Hide');
+		} });
+});
+//----------------------------------------
+</script>
+</body>
+</html>
