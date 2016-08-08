@@ -6,18 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Prototype JSON API for publishing bitcoin / GBP pricing data">
     <title>Prototype JSON API for publishing bitcoin / GBP pricing data</title>
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
     <link href="./css/style.css" rel="stylesheet" type="text/css">
   </head>
   <body>
-  <div class="explainTab"><span id="showExplanations">Show</span><br/>Annotations</div>
+    <!-- &#42; = asterisk -->
+    <!-- &#63; = question mark -->
+  <div class="explainTab"><div id="tabText"><span id="showExplanations">Show</span><br/>Annotations</div><span id="tabSymbol">&#63;</span></div>
   <div class="view">
     <!-- annotation -->
     <div class="explain">
     <div class="pointUpLeft"></div>
     <div class="bubble">
-    Name resolution completed at the site's ISP in Amsterdam<br/><br/>
-    Web Site / API published from a cloud VM instance in Ireland
+    The domain name is resolved to an IP address by the ISP's DNS server in Amsterdam<br/><br/>
+    The website and API are published from a cloud VM instance located in Ireland.
     </div>
     <div class="pointDownCentre"></div>
     </div>
@@ -28,13 +30,13 @@
     <!-- annotation -->
   	<div class="explain">
   	<div class="bubble">
-  	Canvas element is used to graph price data with the chart.js library
+  	A canvas element is used to draw the graph's price data using the chart.js javascript library.
   	</div>
   	<div class="pointDownCentre"></div>
   	</div>
   	<!-- annotation -->
   <span id="stampdate"></span>
-	<canvas id="priceChart" width="400" height="400"></canvas>
+	<div id="chart"><canvas id="priceChart" width="360" height="360"></canvas></div>
   </header>
   <table class="status">
     <thead>
@@ -55,57 +57,80 @@
       </tr>
     </tbody>
   </table>
+
+
+
   <section>
   <p>The bitcoin / GBP price data is updated every 15 mintues and, originally sourced from the freely available <strong>bitcoin average v1 API</strong>, the api data is served from a local database.</p>
-  <h3>Example API Usage</h3>
+  <h3>Data Symbols</h3>
+  <table class="dictionary">
+    <tbody>
+      <tr><td><strong>ask</strong></td><td>This value represents the offered selling price of a single bitcoin in GBP at the given <strong>timestamp</strong>.</td></tr>
+      <tr><td><strong>bid</strong></td><td>This value represents the offered buying price of a single bitcoin in GBP at the given <strong>timestamp</strong>.</td></tr>
+      <tr><td><strong>total_vol</strong></td><td>This value represents the total number of bitcoins traded at the given <strong>timestamp</strong>.</td></tr>
+      <tr><td><strong>last</strong></td><td>The value of the price of the most recent trade at the given <strong>timestamp</strong>. It can be an indicator as to the direction prices might take in the near future.</td</tr>
+      <tr><td><strong>p24h_avg</strong></td><td>The 24 Hour Average price value at the given <strong>timestamp</strong>. It can indicate how current prices are moving in comparison to trades completed over the last day.</td></tr>
+      <tr><td><strong>timestamp</strong></td><td>The UTC Date and 24 Hour time of the result's values.</td></tr>
+    </tbody>
+  </table>
+  </section>
+
+  <section>
+    <h3>Example API Usage</h3>
     <!-- annotation -->
     <div class="explain">
     <div class="bubble">
-    API data is served from a MySQL DB over a LEMP stack
+    API data is collected from the database with parameterized SQL queries and server from a LEMP stack.
     </div>
     <div class="pointDownCentre"></div>
     </div>
     <!-- annotation -->
-  <p>The default request returns the ten latest recorded bitcoin / GBP prices in JSON format:</p>
-  <code class="request"><a>https://78-o.com/api/price/bitcoin</a></code>
+  <p>The default request form returns the ten most recent recorded bitcoin / GBP prices in JSON object format:</p>
+  <code class="request"><a>http://78-o.com/api/price/bitcoin</a></code>
     <!-- annotation -->
     <div class="explain">
     <div class="pointUpLeft"></div>
     <div class="bubble">
-    PHPUnit is used to test assertions made in the called code's logic
+    The build script can publish in one step but is configured to fail if tests against the assertions made in the code's logic also fail.
     </div>
     </div>
     <!-- annotation -->
-  <p>Use <strong>enddate</strong> and <strong>startdate</strong> to get historical bitcoin / GBP Prices for a particular time range:</p>
-  <code class="request"><a>https://78-o.com/api/price/bitcoin/?enddate=2016-07-28&startdate=2016-07-19</a></code>
+  <p>To return more than the default first ten results, supply a <strong>limit</strong> query parameter value to a maximum of 100:</p>
+  <code class="request"><a>http://78-o.com/api/price/bitcoin/?startDate=2016-7-22&limit=3</a></code>
     <!-- annotation -->
     <div class="explain">
     <div class="pointUpLeft"></div>
     <div class="bubble">
-    PHP flags and filters are used to validate and sanitize user input and output.
+    Built-in PHP flags and filters are used to validate and sanitize user input and escape user-bound output.
     </div>
     </div>
     <!-- annotation -->
-  <p>Specify only <strong>enddate</strong> or <strong>startdate</strong> to return the ten prices relevant to the parameter:</p>
-    <code class="request"><a>https://78-o.com/api/price/bitcoin?startdate=2016-07-17</a></code>
-  <p>Requests can be made over an <strong>HTTPS</strong> endpoint:</p>
-    <code class="request"><a>https://78-o.com/api/price/bitcoin</a></code>
+  <p>Use the <strong>startHour</strong> query parameter along with <strong>startDate</strong> and <strong>limit</strong> to return results for a specific time frame:</p>
+    <code class="request"><a>http://78-o.com/api/price/bitcoin/?startDate=2016-07-20&startHour=13&limit=2</a></code>
+  <p>Requests can be made over the <strong>HTTPS</strong> endpoint if the client trusts the <a href="letsencrypt.org">letsencrypt.org</a> CA Certificates:</p>
+    <code class="request"><a>https://78-o.com/api/price/bitcoin/?limit=2</a></code>
     	<!-- annotation -->
     	<div class="explain">
     	<div class="bubble">
-    	JQuery is used to reference page elements and build functionality
+    	The JQuery javascript library is used to reference page elements and build additional functionality.
     	</div>
     	<div class="pointDownCentre"></div>
     	</div>
     	<!-- annotation -->
+  <p>To make requests across domains <strong>JSONP</strong> is supported:</p>
+    <code class="request"><a>https://78-o.com/api/price/bitcoin/?limit=1&callback=?</a></code>
   <p>Example API use with <a href="https://jquery.com" target="_blank">jquery</a> javascript library:</p>
-    <code class="js">var getPrices = function(data) {
-      fx.rates = data.rates
-      var rate = fx(1).from("GBP").to("USD")
-      alert("£1 = $" + rate.toFixed(4))
-      }
-
-      $.getPrices("https://78-o.com/api/price/bitcoin", demo)
+    <code class="js">(function() {
+$.getJSON( "https://78-o.com/api/price/bitcoin/?limit=1&callback=?")
+  .done(function( results ) {
+  $.each(results, function(index, result) {
+    $("#resultsDiv").append("Ask value: " + result['ask'] + "&lt;br /&gt;");
+    $("#resultsDiv").append("Bid value: " + result['bid'] + "&lt;br /&gt;");
+    $("#resultsDiv").append("Timestamp: " + result['timestamp'] + "&lt;br /&gt;");
+    if(index === 'Result1') return false;
+  });
+});
+})();
     </code>
 	</section>
 	<section>
@@ -114,25 +139,34 @@
   	<li>The site is served from a <a href="//nginx.org" target="_blank">nginx community edition</a> web server.</li>
   	<li>Hosted on an <a href="//azure.microsoft.com" target="_blank">Azure Cloud Services</a> A0 virtual machine.</li>
   	<li>Bitcoin price data is originally sourced from <a href="//bitcoinaverage.com/" target="_blank">Bitcoin Average</a> v1 API.</li>
-    <li>Developed with <a href="//atom.io">atom</a>, <a href="//developer.mozilla.org/en-US/Firefox/Developer_Edition">Firefox DE and <a href="//www.gnu.org/software/bash/">bash</a>.</li>
-  	<li>The source is available on GitHub.</li>
+    <li>Developed with <a href="//atom.io">atom</a>, <a href="//developer.mozilla.org/en-US/Firefox/Developer_Edition">Firefox</a> and <a href="//www.gnu.org/software/bash/">bash</a>.</li>
+  	<li>The source is available on <a href="//github.com/taburrows/78-o.com">GitHub</a>.</li>
   </ol>
   </section>
     <!-- annotation -->
     <div class="explain">
     <div class="bubble">
-    Document logically described with semantic HTML elements such as this footer - helps screen readers, search engine robots etc.
+    HTML5 semantic elements 'footer' are used to logically describe the document's layout which should help screen readers, search engines, robots etc.
     </div>
     <div class="pointDownCentre"></div>
     </div>
     <!-- annotation -->
   <footer>
-  tab@78-o.com
+  This website and it's API is published only as an exercise in web programming and development.  It should not be relied upon for timely, accurate or correct price information.  It should not be used for any kind of financial decision making, trading or investing. It has <strong>no warranty</strong> of any kind.
   </footer>
     <!-- annotation -->
     <div class="explain">
     <div class="bubble">
-    JS libraries served from CDNs are linked to from the bottom of the page to improve page rendering speeds
+    Additional required libraries are sourced from CDNs if not present in the browser's cache.<br /><br />
+    Fetching these javascript files is deferred until the rest of the page content has downloaded.
+    </div>
+    <div class="pointDownLeft"></div>
+    </div>
+    <!-- annotation -->
+    <!-- annotation -->
+    <div class="explain">
+    <div class="bubble">
+    JS code written to enable functionality is unbundled / unminified and formatted for human readability at the end of the page's source.
     </div>
     <div class="pointDownLeft"></div>
     </div>
@@ -141,6 +175,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.min.js"></script>
 <script>
+"use strict";
 //----------------------------------------
 var priceChartConfig = {
 type: 'line',
@@ -236,7 +271,7 @@ var getChartData = function() {
 		var lst = [];
 		var lbls = [];
 		$.each(results, function(i, result) {
-			$.each(result, function(k,v) {
+      $.each(result, function(k,v) {
 				if('ask' == k)
 					ask.push(v);
 				if('bid' == k)
@@ -273,6 +308,10 @@ window.onload = function() {
   $('code.request').each(function() {
     var $this = $(this);
     var url = $this.html().match(/<a>([^<]+)/)[1];
+    url = url.replace(/&amp;/g, '&');
+    if('https:' == window.location.protocol)
+        url = url.replace('http:', 'https:');
+    //alert(url);
     $this.on('click', function(e) {
       var $pre = $this.find('pre');
       if ($pre.length) {

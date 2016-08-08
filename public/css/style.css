@@ -8,22 +8,8 @@ font: 15px/1.5 'OpenSans',sans-serif;
 body, a {
 color: #282828;
 }
-.view {
-margin: 0 auto;
-max-width: 600px;
-padding: 10px;
-}
-header {
-padding-top: 2em;
-padding-bottom: 1em;
-text-align: center;
-}
-header h1 {
-font: bold 45px/1.5 'OpenSans', sans-serif;
-}
-header h2 {
-font: normal 30px/1.5 'OpenSans',sans-serif;
-}
+
+/*
 header img {
 display: block;
 margin-left: auto;
@@ -34,13 +20,22 @@ background: #fff;
 color: #fff;
 position: relative;
 padding: 3px;
+}*/
+
+.dictionary td:not(:last-child) {
+vertical-align: top;
+padding-left: 5px;
+padding-right: 20px;
 }
-canvas {
--moz-user-select: none;
--webkit-user-select: none;
--ms-user-select: none;
+.dictionary td:last-child {
+padding-left: 20px;
+padding-right: 5px;
+padding-bottom: 20px;
+text-indent: -20px;
+text-align: justify;
 }
 #priceChart {
+margin: auto;
 background-image: url('../gfx/bitcoin.png');
 background-repeat: no-repeat;
 background-position: center center;
@@ -56,11 +51,8 @@ width: 100%;
 border-right: 1px solid #d8d8d8;
 }
 .status th {
-color: #aaa;
+color: #888;
 font-weight: normal;
-}
-.status td {
-font-size: 19px;
 }
 h3, p {
 padding-bottom: 1em;
@@ -68,6 +60,11 @@ padding-bottom: 1em;
 h3 {
 font-size: 19px;
 padding-top: 1em;
+}
+canvas {
+-moz-user-select: none;
+-webkit-user-select: none;
+-ms-user-select: none;
 }
 .explain {
 display: none;
@@ -122,23 +119,22 @@ display: block;
 font-size: 11px;
 margin-bottom: 2em;
 padding: 1em;
+white-space: pre-wrap;
 }
-code.request:hover {
+code.request  :hover {
 cursor: pointer;
 }
-code.requesta:hover {
+code.request a:hover {
 text-decoration: underline;
 }
-code.request:before {
+code.request :before {
 color: #006ce1;
 content: 'GET ';
 }
 code.js {
-white-space: pre;
-white-space-collapse: discard;
 }
-code.js:hover {
-cursor: pointer;
+code.js :hover {
+cursor: text;
 }
 ol {
 padding-top: 10px;
@@ -150,23 +146,34 @@ footer {
 margin: 2em 0;
 text-align: center;
 }
+#tabText {
+float: left;
+padding-left: 10px;
+cursor: pointer;
+text-decoration: underline;
+}
+#tabSymbol {
+margin-right: 15px;
+float: right;
+font-size: 2em;
+vertical-align: top;
+}
 .explainTab {
-background-image: url('../gfx/explainTab.png');
-background-repeat: no-repeat;
-font: bold 25px/1.5 'OpenSans',sans-serif;
-transition: 0.5s;
+font: bold 20px/1 'OpenSans',sans-serif;
+width: 240px;
+top: 80px;
+height: 50px;
+display: inline;
 padding-top: 10px;
-padding-left: 20px;
+padding-left: 15px;
 position: fixed;
 left: -210px;
-top: 240px;
+width: 250px;
+transition: 0.5s;
 z-index: 999;
 background-color: pink;
-height: 100px;
-width: 250px;
 cursor: pointer;
 color: #0e0e0e;
-text-decoration: underline;
 -webkit-border-radius: 0 5px 5px 0;
 border-radius: 0 5px 5px 0;
 }
@@ -190,6 +197,230 @@ animation-duration: 0.6s;
 -moz-animation-duration: 0.6s;
 visibility: visible !important;
 }
+
+
+
+/* ################################################ */
+@media screen and (min-width: 600px) {
+  body {
+  font-size: 15px;
+  }
+  .view {
+  margin: 0 auto;
+  }
+  header {
+  padding-top: 1em;
+  padding-bottom: 1em;
+  text-align: center;
+  }
+  header h1 {
+  font: bold 40px/1.25 'OpenSans', sans-serif;
+  }
+  header h2 {
+  font: normal 30px/1.25 'OpenSans',sans-serif;
+  }
+  canvas {
+  max-width: 580px;
+  max-height: 580px;
+  }
+  .explainTab {
+  font: bold 25px/1.5 'OpenSans',sans-serif;
+  top: 180px;
+  height: 90px;
+  width: 250px;
+  }
+  .status td {
+  font-size: 19px;
+  }
+}
+@media (min-width: 800px) {
+  body {
+  font-size: 18px;
+  }
+  .view {
+  margin: 0 autox;
+  max-width: 680px;
+  }
+  header {
+  padding-top: 2em;
+  padding-bottom: 1em;
+  text-align: center;
+  }
+  header h1 {
+  font: bold 45px/1.5 'OpenSans', sans-serif;
+  }
+  header h2 {
+  font: normal 30px/1.5 'OpenSans',sans-serif;
+  }
+  canvas {
+  max-width: 660px;
+  }
+  .explainTab {
+  font: bold 20px/1 'OpenSans',sans-serif;
+  width: 240px;
+  top: 80px;
+  height: 50px;
+  }
+  #tabSymbol {
+  font: bold 40px/1 'OpenSans',sans-serif;
+  }
+  .bubble {
+  font: bold 12px/1 'OpenSans',sans-serif;
+  }
+  .status td {
+  font-size: 12px;
+  font-weight: bold;
+  }
+  /*
+  .explainTab {
+  font: bold 25px/1.5 'OpenSans',sans-serif;
+  top: 240px;
+  */
+  /*
+  height: 90px;
+  width: 250px;
+  */
+
+  /*.explainTab {
+  background-image: url('../gfx/explainTab.png');
+  background-repeat: no-repeat;
+  font: bold 25px/1.5 'OpenSans',sans-serif;
+  left: -210px;
+  top: 240px;
+  height: 90px;
+  width: 250px;
+  }*/
+}
+@media screen and (max-width: 600px){
+    body {
+    font-size: 12px;
+    }
+   .view {
+    margin: 10px;
+    max-width: 580px;
+    }
+    header {
+    padding-top: 0.5em;
+    padding-bottom: 1em;
+    text-align: center;
+    }
+    header h1 {
+    font: bold 30px/1.25 'OpenSans', sans-serif;
+    }
+    header h2 {
+    font: normal 20px/1.25 'OpenSans',sans-serif;
+    }
+    canvas {
+    max-width: 480px;
+    max-height: 480px;
+    }
+    .explainTab {
+    font: bold 20px/1 'OpenSans',sans-serif;
+    width: 240px;
+    top: 80px;
+    height: 50px;
+    }
+    #tabSymbol {
+    font: bold 40px/1 'OpenSans',sans-serif;
+    }
+    .bubble {
+    font: bold 12px/1 'OpenSans',sans-serif;
+    }
+    .status td {
+    font-size: 12px;
+    font-weight: bold;
+    }
+}
+
+@media screen and (max-width: 360px){
+    body {
+    font-size: 10px;
+    }
+   .view {
+    margin: 5px;
+    max-width: 340px;
+    }
+    header {
+    padding-top: 0.5em;
+    padding-bottom: 1em;
+    text-align: center;
+    }
+    header h1 {
+    font: bold 30px/1.25 'OpenSans', sans-serif;
+    }
+    header h2 {
+    font: normal 20px/1.25 'OpenSans',sans-serif;
+    }
+    canvas {
+    max-width: 320px;
+    max-height: 320px;
+    }
+    .explainTab {
+    font: bold 20px/1 'OpenSans',sans-serif;
+    width: 240px;
+    top: 80px;
+    height: 50px;
+    }
+    #tabSymbol {
+    font: bold 40px/1 'OpenSans',sans-serif;
+    }
+    .bubble {
+    font: bold 12px/1 'OpenSans',sans-serif;
+    }
+    .status td {
+    font-size: 12px;
+    font-weight: bold;
+    }
+}
+
+/*
+@media screen and (max-width: 320px){
+   .view {
+    margin: 0 auto;
+    max-width: 300px;
+    }
+    header {
+    padding-top: 0.5em;
+    padding-bottom: 1em;
+    text-align: center;
+    }
+    header h1 {
+    font: bold 20px/1.25 'OpenSans', sans-serif;
+    }
+    header h2 {
+    font: normal 15px/1.25 'OpenSans',sans-serif;
+    }
+    canvas {
+    max-width: 280px;
+    max-height: 280px;
+    }
+    /*
+    .explainTab {
+    font: bold 15px/1 'OpenSans',sans-serif;
+    top: 100px;
+    height: 20px;
+    }
+    #tabSymbol {
+    font: bold 20px/1 'OpenSans',sans-serif;
+    }
+    */
+    /*.explainTab {
+    background-image: url('../gfx/explainTab.png');
+    background-repeat: no-repeat;
+    font: bold 15px/1 'OpenSans',sans-serif;
+    padding-top: 5px;
+    padding-left: 10px;
+    position: fixed;
+    left: -230px;
+    top: 100px;
+    height: 20px;
+    width: 250px;
+    }*/
+    /*}
+    */
+/* ################################################ */
+
+
 @keyframes hatchExplanations {
 0% { transform: rotate(0deg) scaleY(0.6); }
 20% { transform: rotate(-2deg) scaleY(1.05); }
