@@ -5,7 +5,7 @@ class DataRequester {
   private $DBDataRequestStatus = '';
   private $DBDataRequestMessage = '';
 
-  public function __construct($source = null, $startDate = null, $startHour = null, $limit = null) {
+  public function __construct($source = null, $startDate = null, $startHour = null, $limit = null, $desc = false) {
     try {
       //The default db query is quickest when searches occur
       //on a key rather than a date object
@@ -24,13 +24,13 @@ class DataRequester {
       switch($source) {
         case 'MYSQL':
           require('DBServerConnector.php');
-          $DBConnection = new DBServerConnection($tstamp, $limit);
+          $DBConnection = new DBServerConnection($tstamp, $limit, $desc);
           $this->DBDataRequestResult = $DBConnection->getData();
           break;
         case 'SQLITE3':
         default:
           require('DBFileConnector.php');
-          $DBConnection = new DBFileConnector($tstamp, $limit);
+          $DBConnection = new DBFileConnector($tstamp, $limit, $desc);
           $this->DBDataRequestResult = $DBConnection->getData();
           break;
         }

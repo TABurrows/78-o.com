@@ -1,0 +1,29 @@
+{
+  "name": "78-o.com",
+  "version": "1.0.0",
+  "description": "78-o.com reference web site and api",
+  "main": "public/index.html",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "wdio ./test/e2e/conf/wdio.conf.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/taburrows/78-o.com"
+  },
+  "keywords": [
+    "78-o.com"
+  ],
+  "author": "taburrows",
+  "license": "ISC",
+  "dependencies": {
+    "webdriverio": "^4.5.0"
+  },
+  "devDependencies": {
+    "allure-commandline": "^1.4.23",
+    "wdio-allure-reporter": "^0.1.2",
+    "wdio-mocha-framework": "^0.5.7"
+  }
+}

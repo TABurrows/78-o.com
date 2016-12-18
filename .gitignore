@@ -4,5 +4,33 @@ makefile
 # Ignore testing .db files
 *.db
 
-# Ignore
+# Ignore Webserver hidden files
+*.ht
+
+# Ignore phpunit elements
 phpunit.phar
+
+# Ignore Visual Studio code files
+.vscode
+
+# Ignore Composer elements
+/vendor/
+composer.phar
+
+# Ignore log files
+*.log
+
+# Ignore bin folder
+/bin/
+
+# Ignore .vagrant folder
+.vagrant
+
+# Ignore node_modules directory
+/node_modules/
+
+# Ignore test output directory
+/test/e2e/errors
+
+# Ignore allure-results directory
+/allure-results/

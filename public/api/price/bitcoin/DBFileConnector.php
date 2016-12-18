@@ -9,6 +9,7 @@ class DBFileConnector {
   private $tbl = 'GBP';
   private $ord = 'ORDER BY key DESC';
   private $lmt = 'LIMIT 10';
+  private $whr = 'WHERE';
 
   private $DBType = 'SQLITE3';
   private $DBLocation = './.htBitcoin.db';
@@ -18,6 +19,7 @@ class DBFileConnector {
   public function __construct($tstamp = null, $limit = null){
 
     $DBData = [];
+    $DBResults = [];
     $db = null;
     $stmt = null;
     try {
@@ -34,7 +36,7 @@ class DBFileConnector {
         } else {
           $offset = 99;
         }
-        $stmt1 = 'SELECT ask, bid, total_vol, last, p24h_avg, timestamp FROM GBP WHERE key BETWEEN (SELECT key FROM GBP WHERE';
+        $stmt1 = 'SELECT key, ask, bid, total_vol, last, p24h_avg, timestamp FROM GBP WHERE key BETWEEN (SELECT key FROM GBP WHERE';
         $stmt2 = 'LIMIT 1) AND ((SELECT key FROM GBP WHERE';
         $stmt3 = 'LIMIT 1) + '.$offset.' )';
         $stmt = $db->prepare($stmt1." timestamp like ? ".$stmt2." timestamp like ? ".$stmt3);
@@ -49,9 +51,11 @@ class DBFileConnector {
         if($result) {
           $i = 0;
           while($row = $result->fetchArray($this->DBFetchType)) {
-            $i++;
-            $DBData['Result'.$i] = $row;
+            $DBResults[$i] =  $row;
+	    $i++;
           }
+	  $DBData['results'] = $DBResults;
+	  $DBData['recordCount'] = (string)$i;
           $this->resultStatusLevel = 'INFO';
           $this->resultStatusMessage = 'Successfully collected '.$i.' records';
         } else {
@@ -64,7 +68,7 @@ class DBFileConnector {
         $this->resultStatusLevel = 'ERROR';
         $this->resultStatusMessage = 'Caught an exception whilst accessing the database: '.$e->getMessage();
     }
-    $DBData['status'] = [ $this->resultStatusLevel => $this->resultStatusMessage ];
+    $DBData['status'] = [ 'level' => $this->resultStatusLevel, 'messages' => $this->resultStatusMessage ];
     $this->results = $DBData;
   }
 

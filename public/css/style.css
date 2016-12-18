@@ -1,9 +1,107 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?q9io6x');
+  src:  url('fonts/icomoon.eot?q9io6x#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?q9io6x') format('truetype'),
+    url('fonts/icomoon.woff?q9io6x') format('woff'),
+    url('fonts/icomoon.svg?q9io6x#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-bell:before {
+  content: "\e951";
+}
+.icon-bubbles3:before {
+  content: "\e96f";
+}
+.icon-stats-dots:before {
+  content: "\e99b";
+}
+.icon-stats-bars:before {
+  content: "\e99c";
+}
+.icon-trophy:before {
+  content: "\e99e";
+}
+.icon-glass2:before {
+  content: "\e9a1";
+}
+.icon-mug:before {
+  content: "\e9a2";
+}
+.icon-spoon-knife:before {
+  content: "\e9a3";
+}
+.icon-rocket:before {
+  content: "\e9a5";
+}
+.icon-hammer2:before {
+  content: "\e9a8";
+}
+.icon-bookmarks:before {
+  content: "\e9d3";
+}
+.icon-star-empty:before {
+  content: "\e9d7";
+}
+.icon-point-right:before {
+  content: "\ea04";
+}
+.icon-point-left:before {
+  content: "\ea06";
+}
+.icon-cross:before {
+  content: "\ea0f";
+}
+.icon-whatsapp:before {
+  content: "\ea93";
+}
+/*
+.clearfix:after {
+    clear: both;
+}
+.clearfix:before, .clearfix:after {
+    content: " ";
+    display: table;
+}*/
+.ico-title {
+  font: 36px 'Monserrat', sans-serif;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  font-weight: bold;
+    margin-left: .25em;
+    margin-right: .25em;;
+}
+.ico-blurb {
+  font: 19px 'Monserrat', sans-serif;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  font-weight: bold;
+    margin-left: .25em;
+}
+
 * {
 margin: 0;
 padding: 0;
 }
 body {
-font: 15px/1.5 'OpenSans',sans-serif;
+font: 15px/1.5 'Monserrat',sans-serif;
 }
 body, a {
 color: #282828;
@@ -107,7 +205,7 @@ border-top: 30px solid pink;
 }
 .bubble {
 color: #0e0e0e;
-font: normal 20px/1.25 'OpenSans',sans-serif;
+font: normal 20px/1.25 'Monserrat',sans-serif;
 background-color: pink;
 padding: 20px;
 border-radius: 20px;
@@ -159,7 +257,7 @@ font-size: 2em;
 vertical-align: top;
 }
 .explainTab {
-font: bold 20px/1 'OpenSans',sans-serif;
+font: bold 20px/1 'Monserrat',sans-serif;
 width: 240px;
 top: 80px;
 height: 50px;
@@ -214,17 +312,17 @@ visibility: visible !important;
   text-align: center;
   }
   header h1 {
-  font: bold 40px/1.25 'OpenSans', sans-serif;
+  font: bold 40px/1.25 'Monserrat', sans-serif;
   }
   header h2 {
-  font: normal 30px/1.25 'OpenSans',sans-serif;
+  font: normal 30px/1.25 'Monserrat',sans-serif;
   }
   canvas {
   max-width: 580px;
   max-height: 580px;
   }
   .explainTab {
-  font: bold 25px/1.5 'OpenSans',sans-serif;
+  font: bold 25px/1.5 'Monserrat',sans-serif;
   top: 180px;
   height: 90px;
   width: 250px;
@@ -247,25 +345,25 @@ visibility: visible !important;
   text-align: center;
   }
   header h1 {
-  font: bold 45px/1.5 'OpenSans', sans-serif;
+  font: bold 45px/1.5 'Monserrat', sans-serif;
   }
   header h2 {
-  font: normal 30px/1.5 'OpenSans',sans-serif;
+  font: normal 30px/1.5 'Monserrat',sans-serif;
   }
   canvas {
   max-width: 660px;
   }
   .explainTab {
-  font: bold 20px/1 'OpenSans',sans-serif;
+  font: bold 20px/1 'Monserrat',sans-serif;
   width: 240px;
   top: 80px;
   height: 50px;
   }
   #tabSymbol {
-  font: bold 40px/1 'OpenSans',sans-serif;
+  font: bold 40px/1 'Monserrat',sans-serif;
   }
   .bubble {
-  font: bold 12px/1 'OpenSans',sans-serif;
+  font: bold 12px/1 'Monserrat',sans-serif;
   }
   .status td {
   font-size: 12px;
@@ -273,7 +371,7 @@ visibility: visible !important;
   }
   /*
   .explainTab {
-  font: bold 25px/1.5 'OpenSans',sans-serif;
+  font: bold 25px/1.5 'Monserrat',sans-serif;
   top: 240px;
   */
   /*
@@ -284,7 +382,7 @@ visibility: visible !important;
   /*.explainTab {
   background-image: url('../gfx/explainTab.png');
   background-repeat: no-repeat;
-  font: bold 25px/1.5 'OpenSans',sans-serif;
+  font: bold 25px/1.5 'Monserrat',sans-serif;
   left: -210px;
   top: 240px;
   height: 90px;
@@ -305,26 +403,26 @@ visibility: visible !important;
     text-align: center;
     }
     header h1 {
-    font: bold 30px/1.25 'OpenSans', sans-serif;
+    font: bold 30px/1.25 'Monserrat', sans-serif;
     }
     header h2 {
-    font: normal 20px/1.25 'OpenSans',sans-serif;
+    font: normal 20px/1.25 'Monserrat',sans-serif;
     }
     canvas {
     max-width: 480px;
     max-height: 480px;
     }
     .explainTab {
-    font: bold 20px/1 'OpenSans',sans-serif;
+    font: bold 20px/1 'Monserrat',sans-serif;
     width: 240px;
     top: 80px;
     height: 50px;
     }
     #tabSymbol {
-    font: bold 40px/1 'OpenSans',sans-serif;
+    font: bold 40px/1 'Monserrat',sans-serif;
     }
     .bubble {
-    font: bold 12px/1 'OpenSans',sans-serif;
+    font: bold 12px/1 'Monserrat',sans-serif;
     }
     .status td {
     font-size: 12px;
@@ -346,33 +444,65 @@ visibility: visible !important;
     text-align: center;
     }
     header h1 {
-    font: bold 30px/1.25 'OpenSans', sans-serif;
+    font: bold 30px/1.25 'Monserrat', sans-serif;
     }
     header h2 {
-    font: normal 20px/1.25 'OpenSans',sans-serif;
+    font: normal 20px/1.25 'Monserrat',sans-serif;
     }
     canvas {
     max-width: 320px;
     max-height: 320px;
     }
     .explainTab {
-    font: bold 20px/1 'OpenSans',sans-serif;
+    font: bold 20px/1 'Monserrat',sans-serif;
     width: 240px;
     top: 80px;
     height: 50px;
     }
     #tabSymbol {
-    font: bold 40px/1 'OpenSans',sans-serif;
+    font: bold 40px/1 'Monserrat',sans-serif;
     }
     .bubble {
-    font: bold 12px/1 'OpenSans',sans-serif;
+    font: bold 12px/1 'Monserrat',sans-serif;
     }
     .status td {
     font-size: 12px;
     font-weight: bold;
     }
 }
-
+/* Poppie Styling */
+.poppie-container {
+    background-image: ("../gfx/poppie3.png");
+    display: block;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 162px;
+    border: 1px solid #D3D7DC;
+    background: #fff;
+    padding: 12px 15px;
+    z-index: 9999;
+    box-shadow: 10px 10px 5px rgba(0,0,0,.5);
+}
+.poppie-cross {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    font-size: 16px;
+    padding: 5px;
+    background: #fff;
+    cursor: pointer;
+}
+[class^="poppie-"],[class*=" poppie-"] {
+    font-family: 'icomoon' !important;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 7;
+    -webkit-font-smoothing: anitaliased;
+    -moz-osx-font-smoothing: grayscale;
+}
 /*
 @media screen and (max-width: 320px){
    .view {
@@ -385,10 +515,10 @@ visibility: visible !important;
     text-align: center;
     }
     header h1 {
-    font: bold 20px/1.25 'OpenSans', sans-serif;
+    font: bold 20px/1.25 'Monserrat', sans-serif;
     }
     header h2 {
-    font: normal 15px/1.25 'OpenSans',sans-serif;
+    font: normal 15px/1.25 'Monserrat',sans-serif;
     }
     canvas {
     max-width: 280px;
@@ -396,18 +526,18 @@ visibility: visible !important;
     }
     /*
     .explainTab {
-    font: bold 15px/1 'OpenSans',sans-serif;
+    font: bold 15px/1 'Monserrat',sans-serif;
     top: 100px;
     height: 20px;
     }
     #tabSymbol {
-    font: bold 20px/1 'OpenSans',sans-serif;
+    font: bold 20px/1 'Monserrat',sans-serif;
     }
     */
     /*.explainTab {
     background-image: url('../gfx/explainTab.png');
     background-repeat: no-repeat;
-    font: bold 15px/1 'OpenSans',sans-serif;
+    font: bold 15px/1 'Monserrat',sans-serif;
     padding-top: 5px;
     padding-left: 10px;
     position: fixed;

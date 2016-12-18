@@ -81,9 +81,28 @@ try {
                               ]);
   if($cleanLimit || is_null($cleanLimit)){
     $validLimitValue = true;
+    //Test Orderer
+    $cleanDesc = filter_input(
+                  INPUT_GET,
+                  'desc',
+                  FILTER_SANITIZE_SPECIAL_CHARS);
+  if(isset($cleanDesc))
+    $cleanDesc = true;
+  else
+    $cleanDesc = false;
+                
   } else {
     throw new Exception('The value supplied for limit was not valid.');
   }
+  //Read key GET variable if present
+  $cleanKey = filter_input(
+    INPUT_GET,
+    'key',
+                                    FILTER_VALIDATE_REGEXP,
+                                    ['options' => ['regex' => '/^\d$/']]);
+  //  if(isset($cleanKey))
+
+  
 
 // -------------------------------------------------------------------------------
 } catch (Exception $e) {
@@ -97,7 +116,7 @@ try {
 
 
 if($validStartDateValue || $validStartHourValue || $validLimitValue || $validJSONPCallback){
-  $req = new DataRequester(null, $cleanStartDate, $cleanStartHour, $cleanLimit);
+  $req = new DataRequester(null, $cleanStartDate, $cleanStartHour, $cleanLimit, $cleanDesc);
   $results = $req->getDATA();
 } else {
   $results['status'] = [$lastStatusLevel => $lastStatusMessage];
@@ -109,7 +128,7 @@ if($jsonpRequest){
   echo $cleanJSONPCallback."(".json_encode($results).")";
 }else {
   header('Content-type: application/json; charset=UTF-8');
-header('X-Powered-By: 14 drunk monkeys');
+  header('X-Powered-By: 14 drunk monkeys');
   echo json_encode($results, JSON_PRETTY_PRINT);
 }
 

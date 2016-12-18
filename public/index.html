@@ -18,7 +18,7 @@
     <div class="explain">
     <div class="pointUpLeft"></div>
     <div class="bubble">
-    The domain name is resolved to an IP address by the ISP's DNS server in Amsterdam<br/><br/>
+    The domain is resolved to an IP address at the ISP's DNS server in Amsterdam<br/><br/>
     The website and API are published from a cloud VM instance located in Ireland.
     </div>
     <div class="pointDownCentre"></div>
@@ -112,7 +112,7 @@
     	<!-- annotation -->
     	<div class="explain">
     	<div class="bubble">
-    	The JQuery javascript library is used to reference page elements and build additional functionality.
+    	Pure JS and the JQuery javascript library is used to reference page elements and build additional functionality.
     	</div>
     	<div class="pointDownCentre"></div>
     	</div>
@@ -258,20 +258,20 @@ scales: {
 //----------------------------------------
 var getChartData = function() {
 	var data =$.getJSON( "/api/price/bitcoin/", function(results) {
-		var ts = results.Result1.timestamp;
+		var ts = results.results[0].timestamp;
 		var td = ts.substr(0,ts.length-14);
 		var tm = ts.substr(ts.length-14).substr(0,9);
 		$('#stampdate').text(td);
 		$('#stamptime').text(tm + " UTC");
-		$('#total_vol').text(results.Result1.total_vol);
-		$('#p24h_avg').text(results.Result1.p24h_avg);
+		$('#total_vol').text(results.results[0].total_vol);
+		$('#p24h_avg').text(results.results[0].p24h_avg);
 		var ask = [];
 		var bid = [];
 		var avg = [];
 		var lst = [];
 		var lbls = [];
-		$.each(results, function(i, result) {
-      $.each(result, function(k,v) {
+		$.each(results.results, function(i, result) {
+	        $.each(result, function(k,v) {
 				if('ask' == k)
 					ask.push(v);
 				if('bid' == k)
@@ -280,7 +280,7 @@ var getChartData = function() {
 					avg.push(v);
 				if('last' == k)
 					lst.push(v);
-				if('timestamp' == k)
+				if('timestamp' == k) 
 					lbls.push(v.substr(v.length-14).substr(0,5));
 			});
 		});
@@ -290,7 +290,7 @@ var getChartData = function() {
 	                dataset.data = dsets[i]
 		});
 		window.priceChartCanvas.update();
-  	console.log( "Successfully received data from the ajax call." );
+  	console.log( "Successfully received data from XHR request." );
 	  })
 	  .fail(function(e) {
 	    console.log( "There was an error connecting to the bitcoin price api: " + e.message);
@@ -311,7 +311,6 @@ window.onload = function() {
     url = url.replace(/&amp;/g, '&');
     if('https:' == window.location.protocol)
         url = url.replace('http:', 'https:');
-    //alert(url);
     $this.on('click', function(e) {
       var $pre = $this.find('pre');
       if ($pre.length) {
@@ -333,6 +332,9 @@ $('.explainTab').mouseover(function() {
 });
 $('.explainTab').mouseout(function() {
 	$(this).removeClass('showExplainTab');
+});
+$('.explainTab').mouseup(function(){
+  $(this).removeClass('showExplainTab');
 });
 $('.explainTab').click(function() {
 	$('.explain').each(function(){
