@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Prototype JSON API for publishing bitcoin / GBP pricing data">
-    <title>Prototype JSON API for publishing bitcoin / GBP pricing data</title>
+    <meta name="description" content="Reference REST API for publishing bitcoin / GBP pricing data">
+    <title>Reference REST API for publishing bitcoin / GBP pricing data</title>
     <link href="//fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
     <link href="./css/style.css" rel="stylesheet" type="text/css">
   </head>
@@ -26,7 +26,7 @@
     <!-- annotation -->
   <header>
   <h1>78-o.com</h1>
-  <h2>Prototype JSON API for publishing bitcoin / GBP pricing data</h2>
+  <h2>Reference REST API for publishing bitcoin / GBP pricing data</h2>
     <!-- annotation -->
   	<div class="explain">
   	<div class="bubble">
@@ -334,7 +334,7 @@ $('.explainTab').mouseout(function() {
 	$(this).removeClass('showExplainTab');
 });
 $('.explainTab').mouseup(function(){
-  $(this).removeClass('showExplainTab');
+  setTimeout(function() { $(this).removeClass('showExplainTab'); }, 3000);
 });
 $('.explainTab').click(function() {
 	$('.explain').each(function(){
