@@ -9,8 +9,7 @@ A reference site built with HTML, CSS, JavaScript and PHP running on a Linux/ngi
 * Vagrantfile and full support for Dev 
 * JSON with padding support for use beyond CORS restrictions
 ## Overview
-![alt text][overview]
-[overivew]:https://78-o.com/gfx/readme/site-v1.pnp "Overview Image"
+![alt text](https://78-o.com/gfx/readme/site-v1.png "Overview Image")
 
 
 
