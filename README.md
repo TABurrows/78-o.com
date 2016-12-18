@@ -9,7 +9,13 @@ A reference site built with HTML, CSS, JavaScript and PHP running on a Linux/ngi
 * Vagrantfile and full support for Dev 
 * JSON with padding support for use beyond CORS restrictions
 ## Overview
+An example of an API client is the graph on the site's home page.
 ![alt text](https://78-o.com/gfx/readme/site-v1.png "Overview Image")
+
+## Client
+There is an AngularJS client example in **build/client/angularjs/app*** source folder.
+![alt text](https://78-o.com/gfx/readme/client-v1.png "Client Image")
+
 
 
 
