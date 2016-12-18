@@ -55,7 +55,10 @@ sudo sed -i 's/BEGIN TRANSACTION/BEGIN/g' /vagrant_data/bitcoindb.sql
 # comment out sqlite3 create syntax
 sudo sed -i 's/CREATE TABLE/\#CREATE TABLE/g' /vagrant_data/bitcoindb.sql
 
-# import the data
+# comment out sqlite3 create syntax
+sudo sed -i 's/PRAGMA/\#PRAGMA/g' /vagrant_data/bitcoindb.sql
+
+# import the data from sqlite3 fileName.db .dump >> bitcoindb.sql
 sudo mysql -u root -p$RPWD BITCOIN < /vagrant_data/bitcoindb.sql
 
 # sleep between 1-10 secs
@@ -76,9 +79,6 @@ sudo mysql -u root -p$RPWD -e "GRANT SELECT, INSERT, UPDATE ON BITCOIN.GBP TO 'r
 sudo /etc/init.d/mysql restart
 
 # create an env for db connection password
-#sudo source ~/.profile && [ -z "\$REDBEAN_CONNECT" ] && echo "export REDBEAN_CONNECT=$UPWD" >> ~/.profile
-#sudo bash -c 'if grep -q "REDBEAN" /etc/environment; then echo "Redbean env already set."; else echo "REDBEAN=\"'$UPWD'\"" >> /etc/environment; fi;'
-#sudo bash -c 'if grep -q "REDBEAN" /etc/environment; then echo "Redbean env already set."; else sudo echo "REDBEAN=\"bf53b26579af38b95adb8b2e4d2c2ddb\"" >> /etc/environment; fi;'
 if [ grep -q REDBEAN /etc/environment ]; then
     echo "REDBEAN already in /etc/environment";
 else 

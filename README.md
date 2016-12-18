@@ -1,2 +1,10 @@
 # 78-o.com
-Prototype JSON API for publishing bitcoin / GBP pricing data
+Reference JSON API for publishing bitcoin / GBP pricing data
+
+
+
+
+
+
+
+
