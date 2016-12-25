@@ -1,5 +1,5 @@
 # 78-o.com
-### Reference REST API for publishing bitcoin / GBP pricing data
+### Reference REST API for Bitcoin / GBP pricing data
 A reference site built with HTML, CSS, JavaScript and PHP running on a Linux/nginx cloud stack with a MariaDB datastore.
 ## Features
 * TLS / SSL Encryption with certificates from letsencrypt.org

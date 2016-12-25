@@ -1,11 +1,11 @@
 <?php
-require_once( dirname(dirname(dirname(__DIR__))).'/lib/rb.php');
+echo( dirname(dirname(dirname(__DIR__))).'/lib/rb.php');
 
 
 class DataSet {
 
     public function __construct() {
-       return R::setup('mysql:host=localhost;dbname=BITCOIN','redbean', getenv($REDBEAN));
+       return R::setup('mysql:host=localhost;dbname=BITCOIN','redbean', getenv('REDBEAN'));
     }
 
     public function getMostRecent($quantity = 6) {

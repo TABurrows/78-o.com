@@ -73,7 +73,7 @@ echo "redbean user on db has password:" >> /root/install.txt
 echo $UPWD >> /root/install.txt
 
 # create a user for use with the database
-sudo mysql -u root -p$RPWD -e "GRANT SELECT, INSERT, UPDATE ON BITCOIN.GBP TO 'redbean'@'%' IDENTIFIED BY '$UPWD' WITH GRANT OPTION; FLUSH PRIVILEGES;" 
+sudo mysql -u root -p$RPWD -e "GRANT SELECT, INSERT, UPDATE ON BITCOIN.GBP TO 'redbean'@'localhost' IDENTIFIED BY '$UPWD' WITH GRANT OPTION; FLUSH PRIVILEGES;" 
 
 # restart
 sudo /etc/init.d/mysql restart

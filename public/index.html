@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Reference REST API for publishing bitcoin / GBP pricing data">
-    <title>Reference REST API for publishing bitcoin / GBP pricing data</title>
+    <meta name="description" content="Reference Implementation of a REST API for publishing bitcoin / GBP pricing data">
+    <title>Reference Implementation of a REST API for Bitcoin / GBP pricing data</title>
     <link href="//fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
     <link href="./css/style.css" rel="stylesheet" type="text/css">
   </head>
@@ -26,7 +26,7 @@
     <!-- annotation -->
   <header>
   <h1>78-o.com</h1>
-  <h2>Reference REST API for publishing bitcoin / GBP pricing data</h2>
+  <h2>Reference Implementation of a REST API for publishing bitcoin / GBP pricing data</h2>
     <!-- annotation -->
   	<div class="explain">
   	<div class="bubble">
@@ -86,7 +86,7 @@
     </div>
     <!-- annotation -->
   <p>The default request form returns the ten most recent recorded bitcoin / GBP prices in JSON object format:</p>
-  <code class="request"><a>http://78-o.com/api/price/bitcoin</a></code>
+  <code class="request"><a>https://78-o.com/api/price/bitcoin</a></code>
     <!-- annotation -->
     <div class="explain">
     <div class="pointUpLeft"></div>
@@ -96,7 +96,7 @@
     </div>
     <!-- annotation -->
   <p>To return more than the default first ten results, supply a <strong>limit</strong> query parameter value to a maximum of 100:</p>
-  <code class="request"><a>http://78-o.com/api/price/bitcoin/?startDate=2016-7-22&limit=3</a></code>
+  <code class="request"><a>https://78-o.com/api/price/bitcoin/?startDate=2016-7-22&limit=3</a></code>
     <!-- annotation -->
     <div class="explain">
     <div class="pointUpLeft"></div>
@@ -106,7 +106,7 @@
     </div>
     <!-- annotation -->
   <p>Use the <strong>startHour</strong> query parameter along with <strong>startDate</strong> and <strong>limit</strong> to return results for a specific time frame:</p>
-    <code class="request"><a>http://78-o.com/api/price/bitcoin/?startDate=2016-07-20&startHour=13&limit=2</a></code>
+    <code class="request"><a>https://78-o.com/api/price/bitcoin/?startDate=2016-07-20&startHour=13&limit=2</a></code>
   <p>Requests can be made over the <strong>HTTPS</strong> endpoint if the client trusts the <a href="letsencrypt.org">letsencrypt.org</a> CA Certificates:</p>
     <code class="request"><a>https://78-o.com/api/price/bitcoin/?limit=2</a></code>
     	<!-- annotation -->
@@ -307,10 +307,15 @@ window.onload = function() {
   // Make API examples clickable
   $('code.request').each(function() {
     var $this = $(this);
+    //get the real location from the browser
+    var urn =  window.location.protocol + "//" + window.location.host + '/';
+    //use jQuery to find the <a> tags
     var url = $this.html().match(/<a>([^<]+)/)[1];
+    //remove the printed location line and replace with real
+    url = url.replace('https://78-o.com/', urn);
+    //replace html ampersands with url versions
     url = url.replace(/&amp;/g, '&');
-    if('https:' == window.location.protocol)
-        url = url.replace('http:', 'https:');
+    //add event handlers that will fetch the newly built url from the api
     $this.on('click', function(e) {
       var $pre = $this.find('pre');
       if ($pre.length) {

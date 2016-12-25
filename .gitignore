@@ -34,3 +34,5 @@ composer.phar
 
 # Ignore allure-results directory
 /allure-results/
+
+# Ignore the TODO list
