@@ -4,14 +4,14 @@
 require("DataRequester.php");
 
 //Configure app constants
-$HEADER_JSON = 'Content-Type:application/json; charset=UTF-8';
+//$HEADER_JSON = 'Content-Type:application/json; charset=UTF-8';
 
 //Set the exception handler for unknown requests
 set_exception_handler(function($err){
     //Get the HTTP error Number or default to 400
     $code = $err->getCode() ? : 400;
     //Set the header so clients know this is JSON
-    header($HEADER_JSON, NULL, $code);
+    header('Content-Type:application/json; charset=UTF-8', NULL, $code);
     //Now write out the json encoded error details
     echo json_encode(["Error" => $err->getMessage()]);
 });
@@ -24,12 +24,12 @@ $uri_elements = explode('/', $_SERVER['REQUEST_URI']);
 $dataSet = new DataSet();
 
 //The simple Route handler
-switch($uri_elements[2].strtolower()){
+switch(strtolower($uri_elements[2])){
     case 'prices':
     case 'bitcoin':
         break;
     default:
-        throw new Exception('Unknown Endpoint'.$uri_elements[2].strtolower(), 404);
+        throw new Exception('Unknown Endpoint '.strtolower($uri_elements[2]), 404);
 }
 
 
@@ -64,7 +64,7 @@ switch($HTTPVerb) {
             }
             $dataSet->save();
             //skip the default outputter
-            header("Locaiont: ".$item['url'], null, $status);
+            header("Location: ".$item['url'], null, $status);
             exit;
             break;
         }
@@ -81,8 +81,8 @@ switch($HTTPVerb) {
 };
 
 //Return output to client
-header($HEADER_JSON);
-//echo json_encode($dataOut);
-echo json_encode("You've done it and reached the end! ".$uri_elements[0].strtolower()." 1 is".$uri_elements[1].strtolower());
+header('Content-Type:application/json; charset=UTF-8');
+echo json_encode($dataOut);
+//echo json_encode("You've done it and reached the end! ".$uri_elements[0].strtolower()." 1 is".$uri_elements[1].strtolower());
 
 ?>
