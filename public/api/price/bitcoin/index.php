@@ -40,13 +40,14 @@ try {
     // A null value is valid
     $validStartDateValue = true;
   }
-  //Test callback meets '/^[^a-zA-Z0-9_-]$/'
+  //Test callback meets this rough regex that matches 
+  // javascript function name allowable characters
   $cleanJSONPCallback = filter_input(
                                     INPUT_GET,
                                     'callback',
                                     FILTER_VALIDATE_REGEXP,
                                     ['options' =>
-                                        ['regexp' => '/^*$/']
+                                        ['regexp' => '/^[_$a-zA-Z][_$a-zA-Z0-9]*$/']
                                     ]);
   if(isset($cleanJSONPCallback)) {
       $jsonpRequest = true;
@@ -55,9 +56,8 @@ try {
       //a clean or null value is valid
       $validJSONPCallback = true;
     } else {
-      //throw new Exception('The supplied value for callback does not have the correct form.');
+      throw new Exception('The supplied value for callback does not have the correct form.');
     }
-    $cleanJSONPCallback = $_GET['callback'];
   //Test startHour
   $cleanStartHour = filter_input(
                               INPUT_GET,
@@ -122,13 +122,13 @@ if($validStartDateValue || $validStartHourValue || $validLimitValue || $validJSO
   $results['status'] = [$lastStatusLevel => $lastStatusMessage];
 }
 
-if($jsonpRequest){
-  header('Content-type: application/javascript; charset=utf-8');
-  header('X-Powered-By: 14 drunk monkeys');
+
+header('Content-type: application/javascript; charset=UTF-8');
+header('X-Powered-By: 14 drunk monkeys');
+//if($jsonpRequest){
+  if($cleanJSONPCallback){
   echo $cleanJSONPCallback."(".json_encode($results).")";
 }else {
-  header('Content-type: application/json; charset=UTF-8');
-  header('X-Powered-By: 14 drunk monkeys');
   echo json_encode($results, JSON_PRETTY_PRINT);
 }
 

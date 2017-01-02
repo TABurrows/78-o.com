@@ -86,7 +86,7 @@
     </div>
     <!-- annotation -->
   <p>The default request form returns the ten most recent recorded bitcoin / GBP prices in JSON object format:</p>
-  <code class="request"><a>https://78-o.com/api/price/bitcoin</a></code>
+  <code class="request"><a>https://78-o.com/api/price/bitcoin/</a></code>
     <!-- annotation -->
     <div class="explain">
     <div class="pointUpLeft"></div>
@@ -312,7 +312,8 @@ window.onload = function() {
     //use jQuery to find the <a> tags
     var url = $this.html().match(/<a>([^<]+)/)[1];
     //remove the printed location line and replace with real
-    url = url.replace('https://78-o.com/', urn);
+    //url = url.replace('https://78-o.com/', urn);
+    url = url.replace('https://78-o.com/', '/');
     //replace html ampersands with url versions
     url = url.replace(/&amp;/g, '&');
     //add event handlers that will fetch the newly built url from the api

@@ -5,7 +5,7 @@ class DBFileConnector {
   private $resultStatusMessage = 'New Data Connection Created';
   private $results = [];
 
-  private $sel = 'SELECT ask, bid, total_vol, last, p24h_avg, timestamp FROM';
+  private $sel = 'SELECT key as id, ask, bid, total_vol, last, p24h_avg, timestamp FROM';
   private $tbl = 'GBP';
   private $ord = 'ORDER BY key DESC';
   private $lmt = 'LIMIT 10';
@@ -54,8 +54,8 @@ class DBFileConnector {
             $DBResults[$i] =  $row;
 	    $i++;
           }
-	  $DBData['results'] = $DBResults;
-	  $DBData['recordCount'] = (string)$i;
+      $DBData['results'] = $DBResults;  
+	    $DBData['recordCount'] = (string)$i;
           $this->resultStatusLevel = 'INFO';
           $this->resultStatusMessage = 'Successfully collected '.$i.' records';
         } else {
