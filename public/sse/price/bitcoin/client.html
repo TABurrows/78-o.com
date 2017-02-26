@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bitcoin SSE Client</title>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-sparklines/2.0.0/jquery.sparkline.min.js"></script>
+
+    <style type="text/css">
+        body {
+            width: 80%;
+            margin: 0 auto;
+        }
+        .datatable {
+            color: #282828;
+            background-color: #C0C0C0;
+            font-family: 'Source Code Pro', Courier New, Courier monospace;
+            font-size: 0.75em;
+            font-weight: normal;
+        }
+        .datatable th {
+            color: #AAAAAA;
+            background-color: white;
+            padding-left: 0.5em;
+            padding-right: 0.5em;
+            font-size: 1.25em;
+            padding-top: 1.75em;
+            padding-bottom: 0.75em;
+        }
+        .datatable .lastrow {
+            padding-top: 0.5em;
+            padding-bottom: 0.5em;
+        }
+        .datatable td {
+            color: #282828;
+            background-color: white;
+            padding: 0.5em;
+            font-size: 1.25em;
+            font-weight: bold;
+        }
+        .datatable .floatleft {
+            color: #282828;
+            width: 30%;
+            margin: 0 auto;
+            text-align: left;
+            float: left;
+        }
+        .datatable .floatright {
+            color: #282828;
+            text-align: right;
+            float: right;
+        }
+        .datatable .nobreak {
+            white-space: nowrap;
+        }
+        .datatable .numberalign {
+            text-align: right;
+            vertical-align: top;
+        }
+    </style>
+</head>
+<body>
+    
+
+    <h2>A test SSE Client implementation</h2>
+
+
+        <div id="alltimecontainer" style="max-width: 100%;width: 100%">
+
+        
+
+        <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+        <table class="datatable">
+        <thead>
+            <tr><th>Timestamp</th><th>Total Volume</th><th>Bid</th><th>Change +/-<th>Ask</th><th>Change +/-</th><th>Last</th></tr>            
+        </thead>
+        <tbody id="datatablebody">        
+        </tbody>
+        <tfoot>
+            <tr><th colspan="7"><span id="asktimes" class="floatleft"></span><b>ASK</b><span id="askrange" class="floatright"></span></th></tr>
+            <tr><th colspan="7">
+                <div id="alltimeask" style="max-width: 100%;width: 100%;float:left">
+                    <div style="max-width: 100%;width: 100%;float:left">
+                        <div class="alltimeaskchart" style="max-width: 100%;width: 100%"></div>
+                        <div class="alltimeaskinfo">&nbsp;</div>
+                    </div>
+                </div>
+            </th></tr>
+            <tr><th colspan="7"><span id="bidtimes" class="floatleft"></span><b>BID</b><span id="bidrange" class="floatright"></span></th></tr>
+            <tr><th colspan="7">
+                <div id="alltimebid" style="max-width: 100%;width: 100%;float:left">
+                    <div style="max-width: 100%;width: 100%;float:left">
+                        <div class="alltimebidchart" style="max-width: 100%;width: 100%"></div>
+                        <div class="alltimebidinfo">&nbsp;</div>
+                    </div>
+                </div>
+            </th></tr>
+            <tr><th colspan="7" class="lastrow">
+                <span class="floatleft"></span>
+                <span class="floatright">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                        <circle r="6" cy="9" cx="8" style="fill:none;stroke:#D3D3D3;stroke-width:2" />
+                        <path d="m 8,9 v -3 0" style="fill:none;stroke:#D3D3D3;stroke-width:2;stroke-linecap:round"></path>
+                        <path d="m 8,9 h 3 0" style="fill:none;stroke:#D3D3D3;stroke-width:2;stroke-linecap:round"></path>
+                    </svg>
+                    <span id="lastupdated" class="lastupdated">&nbsp;</span>
+                    <img src="/gfx/anidot.gif">
+                </span>
+            </th></tr>
+        </tfoot>
+        </table>
+        <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+
+
+
+
+        </div>
+
+
+        <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+
+
+
+   <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->  
+    <script>
+        // Declare variables for 
+        var lastaskchange,lastbidchange,lasttimestamp;
+        //-------------------------------
+        function v(n, o, pc){
+            var change = 0;
+            if(pc) {
+                change = Math.round(((n-o)/o) * 100) + " %";
+            } else {
+                var f = Math.pow(10,2);
+                change = (Math.round((n - o) * f))/f;
+            }
+            return change;
+        }
+        //-------------------------------
+        var sseDataTable = new EventSource("/sse/price/bitcoin/latest.php");
+        sseDataTable.onmessage = function(event) {
+            var wdays =  ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+            var data = "";
+            var results = JSON.parse(event.data);
+            var latest = {};
+            var prior = {};
+            var up = '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="11" viewBox="0 0 15 11"><path fill="#00FF00" style="fill:#00FF00;stroke:#FFFFFF;stroke-width:2" d="M0 9.97L1.03 11H14l1-1L8 0h-.958L0 9.984z"></path></svg>';
+            var down = '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="11" viewBox="0 0 15 11"><path fill="#FF0000" style="fill:#FF0000;stroke:#FFFFFF;stroke-width:2" d="M15 1.03L13.97 0H1L0 1l7 10h.958L15 1.016z"></path></svg>';
+            if(results["results"] !== 'undefined'  &&
+                typeof results["results"] === 'object' &&
+                results["results"].length === 2) {
+                    latest = results["results"][0];
+                    prior = results["results"][1];
+                    //Only update the table if the timestamp is new
+                    if(lasttimestamp === undefined || latest.timestamp !== lasttimestamp) {
+                    if(lastaskchange)
+                        prior.askchange = lastaskchange;
+                    else 
+                        prior.askchange = " - <span class='nobreak'>[ - ]</span>";
+                    if(lastbidchange)
+                        prior.bidchange = lastbidchange;
+                    else 
+                        prior.bidchange = " - <span class='nobreak'>[ - ]</span>";
+                    //Now update the globals
+                    lastaskchange = " " + v(latest["ask"], prior["ask"], false) + " <span class='nobreak'>[ " + v(latest["ask"], prior["ask"], true) + " ]</span>";
+                    lastbidchange = " " + v(latest["bid"], prior["bid"], false) + " <span class='nobreak'>[ " + v(latest["bid"], prior["bid"], true) + " ]</span>";
+                    lasttimestamp = latest.timestamp;
+                    //-------------------------------
+                    //Add the arrows
+                    if(lastaskchange.indexOf(" -") === 0) {
+                        lastaskchange = down + lastaskchange;
+                    } else {
+                        lastaskchange = up + lastaskchange;
+                    }
+                    if(lastbidchange.indexOf(" -") === 0) {
+                        lastbidchange = down + lastbidchange;
+                    } else {
+                        lastbidchange = up + lastbidchange;
+                    }
+                    //-------------------------------
+                    //Now update the latest object
+                    latest.askchange = lastaskchange;
+                    latest.bidchange = lastbidchange;
+                    //Clear existing table
+                    var datatablerow = "";
+                    document.getElementById("datatablebody").innerHTML = datatablerow;
+                    //-------------------------------
+                    //Write out the latest table row
+                        datatablerow = "<tr>";
+                        datatablerow += "<td>" + wdays[new Date(latest.timestamp).getDay()] + ", " +
+                                    new Date(latest.timestamp).toLocaleDateString() + " " + 
+                                    new Date(latest.timestamp).toLocaleTimeString() + "</td>";
+                        datatablerow += "<td class='numberalign'>" + latest.total_vol + "</td>";
+                        datatablerow += "<td class='numberalign'>" + latest.bid + "</td><td class='numberalign'>" + latest.bidchange + "</td>";
+                        datatablerow += "<td class='numberalign'>" + latest.ask + "</td><td class='numberalign'>" + latest.askchange + "</td>";
+                        datatablerow += "<td class='numberalign'>" + latest.last + "</td>";
+                        datatablerow += "</tr>";
+                        document.getElementById("datatablebody").innerHTML += datatablerow;
+                    //-------------------------------
+                    // Write out the prior table row
+                        datatablerow = "<tr>";
+                        datatablerow += "<td>" + wdays[new Date(latest.timestamp).getDay()] + ", " +
+                                    new Date(prior.timestamp).toLocaleDateString() + " " + 
+                                    new Date(prior.timestamp).toLocaleTimeString();+ "</td>";
+                        datatablerow += "<td class='numberalign'>" + prior.total_vol + "</td>";
+                        datatablerow += "<td class='numberalign'>" + prior.bid + "</td><td class='numberalign'>" + prior.bidchange + "</td>";
+                        datatablerow += "<td class='numberalign'>" + prior.ask + "</td><td class='numberalign'>" + prior.askchange + "</td>";
+                        datatablerow += "<td class='numberalign'>" + prior.last + "</td>";
+                        datatablerow += "</tr>";
+                        document.getElementById("datatablebody").innerHTML += datatablerow;
+                    } else {
+                        console.log("INFO: no new price data for SSE table row");
+                    }
+            } else { 
+                console.log("ERROR: SSE table row client received invalid data");
+            }
+        };
+   
+        </script>
+
+
+
+        <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+        <script>
+
+
+
+            // --- Start of SSE for sparks -------------------------------------
+            var sseSparks = new EventSource("/sse/price/bitcoin/alltime.php");
+            sseSparks.onmessage = function(event) {                
+                var sparksData = JSON.parse(event.data);
+                var sparksPrices = sparksData["results"];
+                var sparksRange = sparksData["range"];
+                var dtmRangeStart = new Date(sparksRange.times.start);
+                var dtmRangeEnd = new Date(sparksRange.times.end);
+                var rangeStart = dtmRangeStart.toLocaleDateString();
+                var rangeEnd = dtmRangeEnd.toLocaleDateString();
+                // ----- Get subheading values -----------------------
+                $("#askrange").html("min. " + sparksRange.prices.min.ask + " - max. " + sparksRange.prices.max.ask);
+                $("#bidrange").html("min. " + sparksRange.prices.min.bid + " - max. " + sparksRange.prices.max.bid);
+                $("#asktimes").html("" + rangeStart + " - " + rangeEnd);
+                $("#bidtimes").html("" + rangeStart + " - " + rangeEnd)
+                // ----- Ask sparkline --------------------------------
+                $("#alltimeask .alltimeaskchart").sparkline(
+                    $.map(sparksPrices, function(wk) { return wk.ask; }),
+                        {
+                            height: '50',
+                            width: '100%',
+                            lineColor: "rgba(169, 253, 106, 1.0)",
+                            fillColor: "rgba(169, 253, 106, 0.8)",
+                            spotColor: false,
+                            minSpotColor: "#CA0000",
+                            maxSpotColor: "#CA0000",
+                            disableTooltips: true 
+                        }
+                        ).on("sparklineRegionChange", function(ev) {
+                    var idx = ev.sparklines[0].getCurrentRegionFields().offset;
+                    if (idx) {
+                        $(".alltimeaskinfo").html(
+                            new Date(sparksPrices[idx].timestamp).toLocaleDateString() + " " +
+                            new Date(sparksPrices[idx].timestamp).toLocaleTimeString() + 
+                            "&nbsp;-&nbsp;" +
+                            "ASK " + sparksPrices[idx].ask + ",&nbsp;" +
+                            "BID " + sparksPrices[idx].bid);
+                        }
+                    }).on("mouseout", function() {
+                    $(".alltimeaskinfo").html("&nbsp;");
+                });
+                // --- End of Ask sparkline -------------------------           
+                // ----- Bid sparkline --------------------------------
+                $("#alltimebid .alltimebidchart").sparkline(
+                    $.map(sparksPrices, function(wk) { return wk.bid; }),
+                        {                            
+                            height: 50,
+                            width: '100%',
+                            lineColor: "rgba(182, 209, 113, 1.0)",
+                            fillColor: "rgba(182, 209, 113, 0.8)",
+                            spotColor: false,
+                            minSpotColor: "#CA0000",
+                            maxSpotColor: "#CA0000",
+                            disableTooltips: true 
+                        }
+                        ).on("sparklineRegionChange", function(ev) {
+                    var idx = ev.sparklines[0].getCurrentRegionFields().offset;
+                    if (idx) {
+                        $(".alltimebidinfo").html(
+                            new Date(sparksPrices[idx].timestamp).toLocaleDateString() + " " +
+                            new Date(sparksPrices[idx].timestamp).toLocaleTimeString() + 
+                            "&nbsp;-&nbsp;" +
+                            "ASK " + sparksPrices[idx].ask + ",&nbsp;" +
+                            "BID " + sparksPrices[idx].bid);
+                        }
+                    }).on("mouseout", function() {
+                    $(".alltimebidinfo").html("&nbsp;");
+                });
+                // --- End of Bid sparkline -------------------------           
+            };
+            // --- End of SSE for sparks -------------------------------------
+
+
+
+        </script>
+        <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+
+
+
+
+
+
+
+        <script>
+
+        console.log(`
+  _    _   ______   _        _         ____     _ 
+ | |  | | |  ____| | |      | |       / __ \    | |
+ | |__| | | |__    | |      | |      | |  | |  | |
+ |  __  | |  __|   | |      | |      | |  | |  | |
+ | |  | | | |____  | |____  | |____  | |__| |  |_|
+ |_|  |_| |______| |______| |______|   \____/   (_)
+                                        
+                                                                              
+        `);
+
+
+
+
+    </script>
+</body>
+</html>

@@ -198,8 +198,58 @@ animation-duration: 0.6s;
 -moz-animation-duration: 0.6s;
 visibility: visible !important;
 }
-
-
+.lastupdatedhilight {
+    transition: 1s;
+    background-color: yellow;
+}
+.lastupdated {
+    transition: 1s;
+    background-color: white;
+}
+.datatable {
+    color: #282828;
+    background-color: #C0C0C0;
+    font-family: 'Source Code Pro', Courier New, Courier monospace;
+    font-size: 0.75em;
+    font-weight: normal;
+}
+.datatable th {
+    color: #AAAAAA;
+    background-color: white;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    padding-top: 1em;
+    padding-bottom: 0.75em;
+}
+.datatable .lastrow {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+.datatable td {
+    color: #282828;
+    background-color: white;
+    padding: 0.5em;
+    font-weight: bold;
+}
+.datatable .floatleft {
+    color: #282828;
+    width: 30%;
+    margin: 0 auto;
+    text-align: left;
+    float: left;
+}
+.datatable .floatright {
+    color: #282828;
+    text-align: right;
+    float: right;
+}
+.datatable .nobreak {
+    white-space: nowrap;
+}
+.datatable .numberalign {
+    text-align: right;
+    vertical-align: top;
+}
 
 /* ################################################ */
 @media screen and (min-width: 600px) {

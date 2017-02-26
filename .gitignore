@@ -16,6 +16,7 @@ phpunit.phar
 # Ignore Composer elements
 /vendor/
 composer.phar
+composer.lock
 
 # Ignore log files
 *.log
